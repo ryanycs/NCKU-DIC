@@ -3,3 +3,5 @@ work/
 *.vcd
 *.vo
 *.sdo
+*.csd
+transcript
