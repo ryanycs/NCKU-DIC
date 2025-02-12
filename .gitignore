@@ -1,0 +1,5 @@
+work/
+*.out
+*.vcd
+*.vo
+*.sdo
