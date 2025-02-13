@@ -106,12 +106,4 @@ always @(posedge clk or posedge reset) begin
     endcase
 end
 
-always @(posedge clk) begin
-    $write("arr: ");
-    for (integer i = 0; i < 10; i++) begin
-        $write("%d ", stack[i]);
-    end
-    $display("");
-end
-
 endmodule
