@@ -5,7 +5,7 @@ module  ATCONV(
             output     busy,
             input      ready,
 
-            output reg	  [11:0] iaddr, // Image memory address signal
+            output reg    [11:0] iaddr, // Image memory address signal
             input  signed [12:0] idata, // Input pixel data of the grayscale image
 
             output reg cwr,             // Write enable signal
