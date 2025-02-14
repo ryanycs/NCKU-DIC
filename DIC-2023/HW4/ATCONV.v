@@ -84,6 +84,9 @@ always @(*) begin
 
         LAYER1_WRITE_BACK:
             next_state = (img_index == 0) ? IDLE : LAYER1_MEM_ACCESS;
+
+        default:
+            next_state = IDLE;
     endcase
 end
 

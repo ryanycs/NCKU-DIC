@@ -81,6 +81,9 @@ always @(*) begin
 
         RESULT:
             next_state = IDLE;
+
+        default:
+            next_state = IDLE;
     endcase
 end
 
