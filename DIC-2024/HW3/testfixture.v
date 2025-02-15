@@ -403,9 +403,4 @@ initial begin
     $stop;
 end
 
-initial begin
-    $dumpfile("tb.vcd");
-    $dumpvars(0, testfixture1);
-end
-
 endmodule
