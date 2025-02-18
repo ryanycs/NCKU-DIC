@@ -13,3 +13,4 @@
 
 - [HW1 Modular Adder-Subtractor](/DIC-2024/HW1/DIC2024_hw1.pdf)
 - [HW3 Matrix Multiplier](/DIC-2024/HW3/2024_HW3.pdf)
+- [HW4 Max-Priority Queue](/DIC-2024/HW4/HW4.pdf)
