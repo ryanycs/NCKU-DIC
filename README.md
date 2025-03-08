@@ -1,6 +1,6 @@
-# DIC course
+# 數位 IC 設計 (DIC)
 
-## Homework Description
+## Homework
 
 ### 2023
 
