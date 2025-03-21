@@ -46,10 +46,10 @@ module testfixture;
         error_5 = 0;
         error_7 = 0;
 
-        file_comp = $fopen("golden_comp.dat", "r");
-        file3 = $fopen("golden_3num.dat", "r");
-        file5 = $fopen("golden_5num.dat", "r");
-        file7 = $fopen("golden_7num.dat", "r");
+        file_comp = $fopen("./dat/golden_comp.dat", "r");
+        file3 = $fopen("./dat/golden_3num.dat", "r");
+        file5 = $fopen("./dat/golden_5num.dat", "r");
+        file7 = $fopen("./dat/golden_7num.dat", "r");
 
         if (file_comp == 0 || file3 == 0 || file5 == 0 || file7 == 0) begin
             $display("Error: Failed to open one or more golden data files.");
@@ -72,7 +72,7 @@ module testfixture;
                 else if(min == expected_min && max != expected_max) begin
                     $display("Stage1: %0d Failed! Min: Pass                Max: %0d (Expected: %0d)", i, max, expected_max);
                 end
-                
+
                 error_comp = error_comp + 1;
             end
         end
@@ -92,7 +92,7 @@ module testfixture;
             #10;
             if (median5 == expected_median) begin
                 // $display("Test5 %0d Passed! Median: %0d (Expected: %0d)", i, median5, expected_median);
-                
+
             end 
             else begin
                 $display("Stage3: %0d Failed! Median: %0d (Expected: %0d)", i, median5, expected_median);
@@ -110,7 +110,7 @@ module testfixture;
                 error_7 = error_7 + 1;
             end
         end
-    
+
         $fclose(file_comp);
         $fclose(file3);
         $fclose(file5);
@@ -143,7 +143,7 @@ module testfixture;
 
         if(error_comp==0&error_3==0&error_5==0&error_7==0)begin
             $display("                   //////////////////////////               ");
-            $display("                   /                        /       |\__||  ");
+            $display("                   /                        /       |\__|\  ");
             $display("                   /  Congratulations !!    /      / O.O  | ");
             $display("                   /                        /    /_____   | ");
             $display("                   /  Simulation PASS !!    /   /^ ^ ^ \\  |");
@@ -153,8 +153,8 @@ module testfixture;
         end
         else begin
             $display("                   //////////////////////////               ");
-            $display("                   /                        /       |\__||  ");
-            $display("                   /  OOPS !!               /      / X,X  | ");
+            $display("                   /                        /       |\__|\  ");
+            $display("                   /  OOPS !!               /      / X.X  | ");
             $display("                   /                        /    /_____   | ");
             $display("                   /  Simulation Failed !!  /   /^ ^ ^ \\  |");
             $display("                   /                        /  |^ ^ ^ ^ |w| ");
