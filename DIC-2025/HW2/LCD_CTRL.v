@@ -43,27 +43,12 @@ reg [2:0] y, x;
 reg [5:0] counter;
 reg [7:0] img [0:63];
 reg [11:0] sum;
+reg [7:0] max [1:31];
+reg [7:0] min [1:31];
 
 wire [5:0] index = {y + counter[3:2], x + counter[1:0]};
-wire [7:0] max [1:31];
-wire [7:0] min [1:31];
 
-genvar i, j;
-generate
-    for (i = 1; i < 16; i = i + 1) begin: max_gen
-        assign max[i] = (max[i << 1] > max[i << 1 | 1]) ? max[i << 1] : max[i << 1 | 1];
-    end
-    for (i = 0; i < 16; i = i + 1) begin: max_gen1
-        assign max[i + 16] = img[{y + i[3:2], x + i[1:0]}];
-    end
-
-    for (i = 1; i < 16; i = i + 1) begin: min_gen
-        assign min[i] = (min[i << 1] < min[i << 1 | 1]) ? min[i << 1] : min[i << 1 | 1];
-    end
-    for (i = 0; i < 16; i = i + 1) begin: min_gen1
-        assign min[i + 16] = img[{y + i[3:2], x + i[1:0]}];
-    end
-endgenerate
+integer i;
 
 // ===================================================================
 //  FSM
@@ -159,7 +144,7 @@ always @(posedge clk or posedge rst) begin
     endcase
 end
 
-//counter
+// counter
 always @(posedge clk or posedge rst) begin
     if (rst)
         counter <= 6'd0;
@@ -172,12 +157,25 @@ always @(posedge clk or posedge rst) begin
     endcase
 end
 
-// State register
+// state register
 always @(posedge clk or posedge rst) begin
     if (rst)
         state <= S_READ_IMG;
     else
         state <= next_state;
+end
+
+// max, min
+always @(*) begin
+    for (i = 0; i < 16; i = i + 1)
+        max[i + 16] = img[{y + i[3:2], x + i[1:0]}];
+    for (i = 15; i >= 1; i = i - 1)
+        max[i] = (max[i << 1] > max[i << 1 | 1]) ? max[i << 1] : max[i << 1 | 1];
+
+    for (i = 0; i < 16; i = i + 1)
+        min[i + 16] = img[{y + i[3:2], x + i[1:0]}];
+    for (i = 15; i >= 1; i = i - 1)
+        min[i] = (min[i << 1] < min[i << 1 | 1]) ? min[i << 1] : min[i << 1 | 1];
 end
 
 // ===================================================================
