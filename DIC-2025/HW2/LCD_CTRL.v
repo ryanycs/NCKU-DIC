@@ -214,6 +214,7 @@ always @(posedge clk or posedge rst) begin
         IRAM_ceb <= 1'b0;
         IRAM_web <= 1'b0;
     end
+    else
     case (state)
         S_WRITE: begin
             IRAM_ceb <= 1'b1;
