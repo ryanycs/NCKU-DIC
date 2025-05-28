@@ -54,5 +54,106 @@ module BUS(
     // Please write your code here //
     /////////////////////////////////
 
+localparam SLAVE_0 = 0,
+           SLAVE_1 = 1,
+           SLAVE_2 = 2,
+           DEFALUT_SLAVE = 3;
+
+always @(*) begin
+    // Default values
+    // Master
+    RDATA_M0 = 0;
+    RLAST_M0 = 1'b0;
+    WREADY_M0 = 1'b0;
+    RREADY_M0 = 1'b0;
+
+    // Slave 0
+    ADDR_S0 = 0;
+    BLEN_S0 = 0;
+    RVALID_S0 = 1'b0;
+
+    // Slave 1
+    ADDR_S1 = 0;
+    WDATA_S1 = 0;
+    BLEN_S1 = 0;
+    WLAST_S1 = 1'b0;
+    WVALID_S1 = 1'b0;
+    RVALID_S1 = 1'b0;
+
+    // Slave 2
+    ADDR_S2 = 0;
+    WDATA_S2 = 0;
+    BLEN_S2 = 0;
+    WLAST_S2 = 1'b0;
+    WVALID_S2 = 1'b0;
+    RVALID_S2 = 1'b0;
+
+    case (ID_M0)
+        SLAVE_0: begin
+            // Master
+            RDATA_M0 = RDATA_S0;
+            RLAST_M0 = RLAST_S0;
+            WREADY_M0 = 1'b0;
+            RREADY_M0 = RREADY_S0;
+            // Slave
+            ADDR_S0 = ADDR_M0;
+            BLEN_S0 = BLEN_M0;
+            RVALID_S0 = RVALID_M0;
+        end
+        SLAVE_1: begin
+            // Master
+            RDATA_M0 = RDATA_S1;
+            RLAST_M0 = RLAST_S1;
+            WREADY_M0 = WREADY_S1;
+            RREADY_M0 = RREADY_S1;
+            // Slave
+            ADDR_S1 = ADDR_M0;
+            WDATA_S1 = WDATA_M0;
+            BLEN_S1 = BLEN_M0;
+            WLAST_S1 = WLAST_M0;
+            WVALID_S1 = WVALID_M0;
+            RVALID_S1 = RVALID_M0;
+        end
+        SLAVE_2: begin
+            // Master
+            RDATA_M0 = RDATA_S2;
+            RLAST_M0 = RLAST_S2;
+            WREADY_M0 = WREADY_S2;
+            RREADY_M0 = RREADY_S2;
+            // Slave
+            ADDR_S2 = ADDR_M0;
+            WDATA_S2 = WDATA_M0;
+            BLEN_S2 = BLEN_M0;
+            WLAST_S2 = WLAST_M0;
+            WVALID_S2 = WVALID_M0;
+            RVALID_S2 = RVALID_M0;
+        end
+        default: begin
+            // Master
+            RDATA_M0 = 0;
+            RLAST_M0 = 1'b0;
+            WREADY_M0 = 1'b0;
+            RREADY_M0 = 1'b0;
+            // Slave
+            ADDR_S0 = 0;
+            BLEN_S0 = 0;
+            RVALID_S0 = 1'b0;
+
+            ADDR_S1 = 0;
+            WDATA_S1 = 0;
+            BLEN_S1 = 0;
+            WLAST_S1 = 1'b0;
+            WVALID_S1 = 1'b0;
+            RVALID_S1 = 1'b0;
+
+            ADDR_S2 = 0;
+            WDATA_S2 = 0;
+            BLEN_S2 = 0;
+            WLAST_S2 = 1'b0;
+            WVALID_S2 = 1'b0;
+            RVALID_S2 = 1'b0;
+        end
+    endcase
+end
 
 endmodule

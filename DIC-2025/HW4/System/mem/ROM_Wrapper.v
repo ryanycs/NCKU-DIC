@@ -7,11 +7,11 @@ module ROM_Wrapper(
     input      [`BUS_ADDR_BITS-1:0] ADDR_S  ,
     input      [`BUS_LEN_BITS -1:0] BLEN_S  ,
     input                           RVALID_S,
-    output reg [`BUS_DATA_BITS-1:0] RDATA_S ,
+    output     [`BUS_DATA_BITS-1:0] RDATA_S ,
     output reg                      RLAST_S ,
     output reg                      RREADY_S,
-    output                          ROM_rd  ,
-    output     [`BUS_ADDR_BITS-1:0] ROM_A   ,
+    output reg                      ROM_rd  ,
+    output reg [`BUS_ADDR_BITS-1:0] ROM_A   ,
     input      [`BUS_DATA_BITS-1:0] ROM_Q
 );
     /////////////////////////////////
@@ -66,8 +66,8 @@ always @(posedge bus_clk) begin
 end
 
 // state
-always @(posedge bus_clk or posedge rst) begin
-    if (rst)
+always @(posedge bus_clk or posedge bus_rst) begin
+    if (bus_rst)
         state <= S_IDLE;
     else
         state <= next_state;
@@ -86,14 +86,14 @@ always @(*) begin
     if (state == S_READ) begin
         ROM_rd = 1'b1;
         ROM_A = ADDR_S_r + offset;
-        R_DARA_S = ROM_Q;
-        R_LAST_S = (offset == BLEN_S_r - 1) ? 1'b1 : 1'b0;
+        RLAST_S = (offset == BLEN_S_r - 1) ? 1'b1 : 1'b0;
     end else begin
         ROM_rd = 1'b0;
         ROM_A = 0;
-        R_DARA_S = 0;
-        R_LAST_S = 1'b0;
+        RLAST_S = 1'b0;
     end
 end
+
+assign RDATA_S = ROM_Q;
 
 endmodule

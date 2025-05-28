@@ -10,15 +10,15 @@ module SRAM_Wrapper(
     input                           WLAST_S ,
     input                           WVALID_S,
     input                           RVALID_S,
-    output reg [`BUS_DATA_BITS-1:0] RDATA_S ,
+    output     [`BUS_DATA_BITS-1:0] RDATA_S ,
     output reg                      RLAST_S ,
     output reg                      WREADY_S,
     output reg                      RREADY_S,
-    output     [`BUS_DATA_BITS-1:0] SRAM_D  ,
-    output     [`BUS_ADDR_BITS-1:0] SRAM_A  ,
+    output reg [`BUS_DATA_BITS-1:0] SRAM_D  ,
+    output reg [`BUS_ADDR_BITS-1:0] SRAM_A  ,
     input      [`BUS_DATA_BITS-1:0] SRAM_Q  ,
-    output                          SRAM_ceb,
-    output                          SRAM_web
+    output reg                      SRAM_ceb,
+    output reg                      SRAM_web
 );
     /////////////////////////////////
     // Please write your code here //
@@ -30,7 +30,7 @@ localparam S_IDLE   = 3'd0,
            S_WRITE  = 3'd3,
            S_READ   = 3'd4;
 
-reg [1:0] state, next_state;
+reg [2:0] state, next_state;
 reg [`BUS_LEN_BITS -1:0] BLEN_S_r;
 reg [`BUS_ADDR_BITS -1:0] ADDR_S_r;
 reg [`BUS_LEN_BITS-1:0] offset;
@@ -57,6 +57,8 @@ always @(*) begin
             next_state = (WLAST_S) ? S_IDLE : S_WRITE;
         S_READ:
             next_state = (offset == BLEN_S_r - 1) ? S_IDLE : S_READ;
+        default:
+            next_state = S_IDLE;
     endcase
 end
 
@@ -106,12 +108,13 @@ always @(*) begin
             SRAM_web = 1'b0;
             SRAM_A = ADDR_S_r + offset;
             SRAM_D = WDATA_S;
+            RLAST_S = 0;
         end
         S_READ: begin
             SRAM_ceb = 1'b1;
             SRAM_web = 1'b1;
             SRAM_A = ADDR_S_r + offset;
-            RDATA_S = SRAM_Q;
+            SRAM_D = 0;
             RLAST_S = (offset == BLEN_S_r - 1);
         end
         default: begin
@@ -119,11 +122,11 @@ always @(*) begin
             SRAM_web = 1'b1;
             SRAM_A = 0;
             SRAM_D = 0;
-            RDATA_S = 0;
-            WLAST_S = 0;
             RLAST_S = 0;
         end
     endcase
 end
+
+assign RDATA_S = SRAM_Q;
 
 endmodule
