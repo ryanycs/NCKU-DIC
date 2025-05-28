@@ -71,28 +71,28 @@ top u_top(
 );
 
 ROM #(`BUS_DATA_BITS, 4096) i_ROM(
-	.clk		(clk            ),
-	.ROM_rd		(ROM_rd_IMG		),
-	.ROM_addr	(ROM_A_IMG	    ),
-	.ROM_data	(ROM_Q_IMG	    )
+    .clk        (clk            ),
+    .ROM_rd     (ROM_rd_IMG     ),
+    .ROM_addr   (ROM_A_IMG      ),
+    .ROM_data   (ROM_Q_IMG      )
 );
 
 SRAM #(`BUS_DATA_BITS, 4096) i_SRAM_L0(
-	.clk		(clk            ),
-	.SRAM_D		(SRAM_D_L0		),
-	.SRAM_A		(SRAM_A_L0	    ),
-	.SRAM_ceb	(SRAM_ceb_L0    ),
-	.SRAM_web	(SRAM_web_L0    ),
-	.SRAM_Q		(SRAM_Q_L0		)
+    .clk        (clk            ),
+    .SRAM_D     (SRAM_D_L0      ),
+    .SRAM_A     (SRAM_A_L0      ),
+    .SRAM_ceb   (SRAM_ceb_L0    ),
+    .SRAM_web   (SRAM_web_L0    ),
+    .SRAM_Q     (SRAM_Q_L0      )
 );
 
 SRAM #(`BUS_DATA_BITS, 1024) i_SRAM_L1(
-	.clk		(clk            ),
-	.SRAM_D		(SRAM_D_L1		),
-	.SRAM_A		(SRAM_A_L1	    ),
-	.SRAM_ceb	(SRAM_ceb_L1    ),
-	.SRAM_web	(SRAM_web_L1    ),
-	.SRAM_Q		(SRAM_Q_L1		)
+    .clk        (clk            ),
+    .SRAM_D     (SRAM_D_L1      ),
+    .SRAM_A     (SRAM_A_L1      ),
+    .SRAM_ceb   (SRAM_ceb_L1    ),
+    .SRAM_web   (SRAM_web_L1    ),
+    .SRAM_Q     (SRAM_Q_L1      )
 );
 
 always #(`CYCLE/2) clk = ~clk;
@@ -207,7 +207,7 @@ initial begin
       end
       $write("\n");
     end
-	$display("\n===============================================================================================================================================================");
+    $display("\n===============================================================================================================================================================");
 
     $display(" ");
     $display("-----------------------------------------------------\n");
