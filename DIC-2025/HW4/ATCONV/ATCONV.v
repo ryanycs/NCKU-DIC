@@ -56,6 +56,10 @@ reg [3:0] index;
 reg signed [31:0] sum;
 reg [15:0] data;
 
+//////////////////////////////////////////////////////////////////////
+// FSM
+//////////////////////////////////////////////////////////////////////
+
 always @(*) begin
     case (state)
         S_IDLE:
@@ -81,6 +85,7 @@ end
 // Control
 //////////////////////////////////////////////////////////////////////
 
+// y, x
 always @(posedge clk or posedge rst) begin
     if (rst) begin
         y <= 6'd0;
@@ -160,10 +165,6 @@ always @(posedge clk) begin
         data <= (layer0_Q > data) ? layer0_Q : data;
     else
         data <= 16'd0;
-end
-
-// layer0_A_reg
-always @(posedge clk) begin
 end
 
 // state
