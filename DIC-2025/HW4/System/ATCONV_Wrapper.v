@@ -92,6 +92,8 @@ always @(*) begin
             next_state = S_WAIT;
         S_READ:
             next_state = (RLAST_M) ? S_WAIT : S_READ; // Wait for RLAST
+        default:
+            next_state = S_WAIT;
     endcase
 end
 
