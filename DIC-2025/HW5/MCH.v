@@ -18,7 +18,6 @@ localparam READ       = 3'd0,
            SORT       = 3'd1,
            GRAHM_SCAN = 3'd2,
            AREA       = 3'd3,
-        //    IDLE       = 3'd4, // Wait for area calculation
            DONE       = 3'd7;
 
 reg [2:0] state, next_state;
@@ -41,8 +40,6 @@ reg [4:0] min_idx;
 reg [4:0] top;
 
 reg [16:0] area_r;
-
-// vector
 
 wire signed [35:0] cross_product;
 wire signed [35:0] cross_product2 = cross_prod (
@@ -97,9 +94,6 @@ always @(*) begin
         AREA: begin
             next_state = (idx == top - 2) ? DONE : AREA;
         end
-        // IDLE: begin
-        //     next_state = DONE;
-        // end
         DONE: begin
             next_state = READ;
         end
@@ -147,6 +141,7 @@ always @(posedge clk) begin
     convex_y[top] <= y_r[idx];
 end
 
+// area
 always @(posedge clk or posedge reset) begin
     if (reset) begin
         area_r <= 0;
@@ -240,7 +235,6 @@ always @(posedge clk or posedge reset) begin
     end
 end
 
-// assign cross_product = (vx[idx] * vy[idx + 1]) - (vx[idx + 1] * vy[idx]);
 assign cross_product = cross_prod(
     x_r[0], y_r[0],
     x_r[idx + 1], y_r[idx + 1],
