@@ -324,4 +324,3 @@ assign Done = (state == DONE);
 assign area = area_r;
 
 endmodule
-
