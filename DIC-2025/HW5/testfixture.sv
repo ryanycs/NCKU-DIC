@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-`define CYCLE         18.0
+`define CYCLE         21.0
 `define MAX_CYCLE     10000
 `define PATTERN_DIR   "./dat"
 `define TOTAL_PAT     10
