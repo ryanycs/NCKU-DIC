@@ -1,4 +1,4 @@
-# DIC course
+# Digital IC Design | 數位 IC 設計
 
 ## Homework Description
 
@@ -21,3 +21,4 @@
 - [HW2 LCD Controller](/DIC-2025/HW2/DIC_2025_HW2.pdf)
 - [HW3 Fast Fourier Transform](/DIC-2025/HW3/DIC_2025_HW3.pdf)
 - [HW4 Atrous Convolution with Bus Interface](/DIC-2025/HW4/DIC_2025_HW4.pdf)
+- [HW5 Max Convex Hull](/DIC-2025/HW5/DIC_2025_HW5.pdf)
