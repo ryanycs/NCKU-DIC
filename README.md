@@ -1,6 +1,6 @@
 # Digital IC Design | 數位 IC 設計
 
-## Homework Description
+## Homework
 
 ### 2023
 
